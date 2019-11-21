@@ -1,0 +1,24 @@
+[control]
+pamidimalla1c.mylabserver.com ansible_connection=local
+
+[k8s:children]
+master
+workers
+
+[master]
+pamidimalla2c.mylabserver.com
+
+[workers]
+pamidimalla3c.mylabserver.com
+pamidimalla4c.mylabserver.com
+
+[artifactory]
+artifactory.aceit.com
+
+[jenkins]
+builder.aceit.com
+
+[registry]
+registry.aceit.com
+
+
