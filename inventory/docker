@@ -1,0 +1,12 @@
+[master]
+pamidimalla2c.mylabserver.com
+
+[nodes]
+pamidimalla3c.mylabserver.com
+pamidimalla4c.mylabserver.com
+
+[client]
+pamidimalla1c.mylabserver.com
+
+[registry]
+pamidimalla1c.mylabserver.com

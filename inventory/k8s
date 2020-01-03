@@ -1,0 +1,10 @@
+[client]
+pamidimalla1c.mylabserver.com
+
+[master]
+pamidimalla2c.mylabserver.com
+
+[workers]
+pamidimalla3c.mylabserver.com
+pamidimalla4c.mylabserver.com
+
