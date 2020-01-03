@@ -1,0 +1,24 @@
+---
+epel:
+  epel-7:
+    name: epel-release-latest-7
+    description: "EPEL Release 7"
+    base_url: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    gpgcheck: no
+  epel-8:
+    name: epel-release-latest-8
+    description: "EPEL Release 8"
+    baseurl: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+docker:
+  RedHat: 
+    base_url: 
+    gpg_key:
+    gpg_check:
+  Debian:
+    base_url:
+    gpg_check:
+    gpg_key:
+
+ 
+ 

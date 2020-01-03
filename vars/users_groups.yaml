@@ -1,0 +1,35 @@
+---
+# default settings
+user_home_dir: /usr/home
+default_shell: bash
+generate_ssh_key: no
+ssh_key_bits: 2048
+ssh_key_type: rsa
+
+groups:
+  - name: devops
+    system: no
+  - name: dba
+    system: no
+  - name: www
+    system: no
+  - name: jenkins
+    system: no
+
+users:
+  - name: jenkins
+    system: no
+    expires: -1
+    group: jenkins
+    generate_ssh_key: yes
+    ssh_key_comment: "jenkins user"
+    comment: "Jenkins User"
+    create_home: yes
+
+  - name: jrpamid
+
+  - name: mysql
+    group: dba
+    groups: wheel
+     
+    

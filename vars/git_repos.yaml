@@ -1,0 +1,5 @@
+---
+redis: https://github.com/jrpamid/redis.git
+java: https://github.com/jrpamid/java.git
+nginx: https://githib.com/jrpamid/nginx.git
+

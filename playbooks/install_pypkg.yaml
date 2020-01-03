@@ -1,0 +1,26 @@
+---
+- name: playbook to  install python packages
+  hosts: all
+  gather_facts: True
+  vars_files:
+    - ../vars/packages.yaml
+  pre_tasks:
+    - name: ensure pip is installed on rhel
+      become: true
+      yum:
+        name: python3-pip
+        state: latest
+      when: ansible_facts['os_family'] == "Redhat"
+    - name: ensire pip is  installed on Debian
+      apt:
+        name: python3-pip
+        state: latest
+      when: ansible_facts['os_family'] == "Debian"
+  
+  tasks:
+    - name: installing the misc packages
+      pip:
+       name: "{{ misc_py[ansible_os_family] | default(misc_py['Default']) }}"
+       state: present
+       extra_args: --user
+      tags: pypkg

@@ -1,0 +1,24 @@
+---
+- name: play to install packages on control machine
+  hosts: all
+  gather_facts: true
+  become: true
+  vars_files:
+    - ../vars/packages.yaml
+  tasks:
+    - name: install dev packages
+      dnf:
+         name: "{{ dev_tools[ansible_os_family] | default(dev_tools['Default']) }}"
+         state: present
+
+- name: play to install the system admin packages 
+  hosts: all
+  gather_facts: true
+  become: true
+  vars_files:
+    -  ../files/packages.yaml
+  tasks:
+    - name: install sys admin packages
+      dnf:
+        name: "{{ ops_tools[ansible_os_family] | default(ops_tools['Default']) }}"
+        state: present

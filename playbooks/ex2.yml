@@ -1,0 +1,21 @@
+---
+- name: test modules
+  hosts: rce8
+  strategy: free
+  tasks:
+    - name: install pip modues on control node
+      vars:
+        - pkgs: ['awscli','redis','boto','boto3']
+        - user: root
+      pip:
+        name: "{{ pkgs }}"
+        state: present
+        extra_args: --user
+      delegate_to: rhel1
+      become: True
+      become_user: "{{ user }}"
+      become_method: sudo
+      connection: local
+      debugger: on_failed
+      any_errors_fatal: False
+

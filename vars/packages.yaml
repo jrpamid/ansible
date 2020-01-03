@@ -1,0 +1,83 @@
+---
+dev_tools:
+   Default:
+     - git
+     - tree
+     - curl
+     - wget
+     - tmux
+   RedHat:
+     - git
+     - tree
+     - curl
+     - wget
+     - httpd
+     - tmux
+   Debian:
+     - git
+     - tree
+     - curl
+     - wget
+     - apache2
+     - tmux
+
+ops_tools:
+   Default:
+     - htop
+     - dstat
+     - firewalld
+     - tmux
+   RedHat:
+     - sysstat
+     - htop
+     - dstat
+     - firewalld
+     - tmux
+   Debian:
+     - sysstat
+     - htop
+     - dstat
+     - firewalld
+     - tmux
+
+# python  packages are not platform rhel/debian specific.
+# generic python scripting and developemnet packages
+misc_py:
+   Default:
+     - requests
+     - beautifulsoup4
+     - scrapy
+     - sqlalchemy
+     - nose
+     - sh
+     - dateutils
+     - psutil
+     - pyquery
+# python packages for aws interaction
+aws_py:
+  Default:
+    - boto
+    - boto3
+    - pyyaml
+    - awscli
+# python web application framework
+flask_py:
+   Default:
+    - flask
+    - sql-alchemy
+    - gunicorn
+    - pyyaml
+    - requests
+    - dash
+    - plotly
+# python Artificial Intelligence  and Machine Learning packages
+aiml_py:
+   Default:
+    - pandas
+    - numpy
+    - scipy
+    - scikit-learn
+    - matplotlib
+    - tensorflow
+    - keras
+    - pytorch
