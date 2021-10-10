@@ -1,0 +1,6 @@
+[test]
+ansible ansible_connection=local ansible_host=36df4d3c2f1c.mylabserver.com
+linux ansible_host=0d53663d221c.mylabserver.com
+ubuntu ansible_host=49e487e03a1c.mylabserver.com
+
+

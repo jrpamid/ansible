@@ -28,7 +28,8 @@ k8sworker1.aceit.com  ansible_hostname=pamidimalla3c.mylabserver.com
 k8sworker2.aceit.com  ansible_hostname=pamidimalla4c.mylabserver.com
 
 [test]
-rhel1 ansible_connection=local
-deb1 ansible_host=pamidimalla4c.mylabserver.com
+n1 ansible_connection=local ansible_host=36df4d3c2f1c.mylabserver.com
+n2 ansible_host=0d53663d221c.mylabserver.com
+n3 ansible_host=49e487e03a1c.mylabserver.com
 
 

@@ -1,17 +1,7 @@
 ---
-- name:  playbook ex1
-  hosts: rce8
-  become: true
-  become_user: root
+- name:  playbook group_by operation
+  hosts: all
   tasks:
-    - name: make  facts dir
-      file:
-        path: /etc/ansible/facts.d
-        state: directory
+    - name: group by os
+      group_by: key={{ ansible_distribution }}
 
-    - name: copy facts files
-      file:
-        path: ../files/*
-        dest: /etc/ansible/facts.d/
-      
-       

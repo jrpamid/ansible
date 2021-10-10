@@ -16,7 +16,7 @@
   gather_facts: true
   become: true
   vars_files:
-    -  ../files/packages.yaml
+    -  ../vars/packages.yaml
   tasks:
     - name: install sys admin packages
       dnf:
