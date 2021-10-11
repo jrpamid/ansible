@@ -9,8 +9,10 @@ versions: {
   oracle8: "1.8.0_301",
   oracle7: "1.7.311",
   correto8: "1.8.0_281",
+  dbjava: "1.15"
   }
 
+dbjava_package_url: "https://artifactory.intranal.aceit.com/artifactory/maven-dist-local/dbjava-1.15.zip"
 artifactory_base_url: "https://artifactory.intranal.aceit.com/artifactory"
 raw_packages: "{{ artifactory_base_url }}/maven-dist-local/raw/{{ cpu }}"
 openjdk_url: "{{ artifactory_base_url }}/maven-dist-public/openjdk"
@@ -20,37 +22,60 @@ api_key: ""
 
 packages_linux:
   -   {  name : "zulu8.55.0.14-sa-jdk8.0.301-linux_x64.tar.gz",
-        platform: "x64",
+         platform: "x64",
+         java: "openjdk",
+         ver: "{{ versions.openjdk8 }}",
+         benchmark: false,
+         vendor: "azul",
+         artifactory_push: true,
+         fonts: false,
+       }
+  -  {  name : "zulu8.55.0.14-sa-jdk8.0.301-linux_i686.tar.gz",
+        platform: "i686",
+        java: "openjdk",
         ver: "{{ versions.openjdk8 }}",
         benchmark: false,
         vendor: "azul",
         artifactory_push: true,
         fonts: false,
-       }
-  -  { name : "zulu8.55.0.14-sa-jdk8.0.301-linux_i686.tar.gz",
-       platform: "i686",
-       ver: "{{ versions.openjdk8 }}",
-       benchmark: false,
-       vendor: "azul",
-       artifactory_push: true,
-       fonts: false,
      }
 
-
 packages_solaris:
-  - openjdk8_solaris_64:
-     { name : "",
-       ver: "{{ versions.openjdk8 }}",
-       benchmark: false,
-       vendor: "azul",
-       fonts: false,
+  -   {  name : "zulu8.55.0.14-sa-jdk8.0.301-linux_x64.tar.gz",
+         platform: "x64",
+         java: "openjdk",
+         ver: "{{ versions.openjdk8 }}",
+         benchmark: false,
+         vendor: "azul",
+         artifactory_push: true,
+         fonts: false,
+       }
+  -  {  name : "zulu8.55.0.14-sa-jdk8.0.301-linux_i686.tar.gz",
+        platform: "i686",
+        java: "openjdk",
+        ver: "{{ versions.openjdk8 }}",
+        benchmark: false,
+        vendor: "azul",
+        artifactory_push: true,
+        fonts: false,
      }
 
 packages_sparc:
-  - openjdk8_solaris_64:
-     { name : "test",
-       ver: "{{ versions.openjdk8 }}",
-       benchmark: false,
-       vendor: "azul",
-       fonts: false,
+  -   {  name : "zulu8.55.0.14-sa-jdk8.0.301-linux_x64.tar.gz",
+         platform: "sparc",
+         java: "openjdk",
+         ver: "{{ versions.openjdk8 }}",
+         benchmark: false,
+         vendor: "azul",
+         artifactory_push: true,
+         fonts: false,
+       }
+  -  {  name : "zulu8.55.0.14-sa-jdk8.0.301-linux_i686.tar.gz",
+        platform: "sparc",
+        java: "openjdk",
+        ver: "{{ versions.openjdk8 }}",
+        benchmark: false,
+        vendor: "azul",
+        artifactory_push: true,
+        fonts: false,
      }

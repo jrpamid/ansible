@@ -1,13 +1,37 @@
 ---
-- name: running java packaging for "{{ name }}"
+- name: java packaging for "{{ name }}"
   debug: 
-    msg:  "{{ name }}" 
-- name: check var2
+    msg:  "raw package name => {{ name }}" 
+
+- name: Check the packing directory
   debug:
     msg: "{{ openjdk_url }}"
-- name: check var3
+
+- name: Check the packed directory
   debug: 
     var: "raw_path"
-- name: check var4
+
+- name: Pull and Extract the raw package from artifactory
   debug:
-    var: "os"
+    var: "{{ raw_packages }}/{{ name }}"
+
+- name: Rename the package dir as per standard. "{{ java }}{{ ver }}"
+  debug:
+    var: "{{ java }}{{ ver }}"
+
+- name: Set the JAVA_HOME env variable
+
+- name: Pull and Extract dbjava package has been downloaded from artifactory 
+
+- name: Execute the CUSTOMISE action 
+
+- name: Execute t he FONTS action
+
+- name: Set permissions to 755 
+
+- name: execute  the VERIFY action
+
+- name: Setup the benchmark job for this java version.
+
+- name: Publish package to artifactory 
+

@@ -10,25 +10,57 @@
     - name: calling packaging tasks
       include: java_server_cpu_build.yaml
       vars:
-        raw_path: "/home/cloud_user/raw"
-        packing_path: "/home/clous_user/packing"
+        packing_path: "/home/cloud_user/packing"
         packed_path: "/home/cloud_user/packed"
         os: "linux"
-        name: "{{ item.name }}" 
+        name: "{{ item.name }}"
+        java: "{{ item.java }}"
+        vendor: "{{ item.vendor }}"
+        version: "{{ item.ver }}"
+        artifactory_push: "{{ item.artifactory_push }}"
+        fonts: "{{ item.push }}"
+        benchmark: "{{ item.benchmark }}" 
       with_items: 
        - "{{ packages_linux }}"
 
-- name: Ubuntu Server side Java CPU
-  hosts: ubuntu_node
+- name: Solaris Server side Java CPU
+  hosts: solaris_node
   vars_files: 
     - ./vars.yaml
   tasks:
-    - name: calling packaging tasks
+    - name: calling packaging tasks 
       include: java_server_cpu_build.yaml
       vars:
-        raw_path: /home/ubuntu/raw
-        packing_path: /home/ubuntu/packing 
-        packed_path: /home/ubuntu/packed
-        os: "ubuntu"
+        packing_path: "/home/clous_user/packing"
+        packed_path: "/home/cloud_user/packed"
+        os: "linux"
+        name: "{{ item.name }}"
+        java: "{{ item.java }}"
+        vendor: "{{ item.vendor }}"
+        version: "{{ item.ver }}"
+        artifactory_push: "{{ item.artifactory_push }}"
+        fonts: "{{ item.push }}"
+        benchmark: "{{ item.benchmark }}" 
       with_items: 
        - "{{ packages_solaris }}"
+
+- name: Solaris Sparc side Java CPU
+  hosts: sparc_node
+  vars_files: 
+    - ./vars.yaml
+  tasks:
+    - name: calling packaging tasks 
+      include: java_server_cpu_build.yaml
+      vars:
+        packing_path: "/home/clous_user/packing"
+        packed_path: "/home/cloud_user/packed"
+        os: "linux"
+        name: "{{ item.name }}"
+        java: "{{ item.java }}"
+        vendor: "{{ item.vendor }}"
+        version: "{{ item.ver }}"
+        artifactory_push: "{{ item.artifactory_push }}"
+        fonts: "{{ item.push }}"
+        benchmark: "{{ item.benchmark }}" 
+      with_items: 
+       - "{{ packages_sparc }}"
