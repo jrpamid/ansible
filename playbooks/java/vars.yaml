@@ -1,0 +1,56 @@
+---
+# Year and the Quater for the Critical  Patch Updates
+cpu: "2021q4"
+
+versions: {
+  openjdk8: "1.8.0_301",
+  openjdk11: "11.0.12",
+  openjdk17: "17.0.0",
+  oracle8: "1.8.0_301",
+  oracle7: "1.7.311",
+  correto8: "1.8.0_281",
+  }
+
+artifactory_base_url: "https://artifactory.intranal.aceit.com/artifactory"
+raw_packages: "{{ artifactory_base_url }}/maven-dist-local/raw/{{ cpu }}"
+openjdk_url: "{{ artifactory_base_url }}/maven-dist-public/openjdk"
+oraclejdk_url: "{{ artifactory_base_url }}/maven-dist-private/oracle/jdk"
+api_user: "releaser"
+api_key: ""
+
+packages_linux:
+  -   {  name : "zulu8.55.0.14-sa-jdk8.0.301-linux_x64.tar.gz",
+        platform: "x64",
+        ver: "{{ versions.openjdk8 }}",
+        benchmark: false,
+        vendor: "azul",
+        artifactory_push: true,
+        fonts: false,
+       }
+  -  { name : "zulu8.55.0.14-sa-jdk8.0.301-linux_i686.tar.gz",
+       platform: "i686",
+       ver: "{{ versions.openjdk8 }}",
+       benchmark: false,
+       vendor: "azul",
+       artifactory_push: true,
+       fonts: false,
+     }
+
+
+packages_solaris:
+  - openjdk8_solaris_64:
+     { name : "",
+       ver: "{{ versions.openjdk8 }}",
+       benchmark: false,
+       vendor: "azul",
+       fonts: false,
+     }
+
+packages_sparc:
+  - openjdk8_solaris_64:
+     { name : "test",
+       ver: "{{ versions.openjdk8 }}",
+       benchmark: false,
+       vendor: "azul",
+       fonts: false,
+     }

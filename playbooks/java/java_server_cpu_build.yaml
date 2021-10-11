@@ -1,7 +1,13 @@
 ---
-- name: check var1 
-  debug_var: "{{ cpu }}"
+- name: running java packaging for "{{ name }}"
+  debug: 
+    msg:  "{{ name }}" 
 - name: check var2
-  debug_var: "{{ openjdk_url }}"
+  debug:
+    msg: "{{ openjdk_url }}"
 - name: check var3
-  debug_var: "{{ raw_path }} \n {{packing_path}} \n {{packed_path}}"
+  debug: 
+    var: "raw_path"
+- name: check var4
+  debug:
+    var: "os"

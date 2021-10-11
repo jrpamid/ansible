@@ -1,28 +1,27 @@
 ---
 - name: Linux Server side Java CPU
-  hosts: linux
+  hosts: linux_node
   diff: true 
-  debugger: on_failed
   serial: 1
-  any_errors_fatal: true
+  gather_facts: false
   vars_files: 
-    - java_pkgs.yaml
+    - vars.yaml
   tasks:
     - name: calling packaging tasks
       include: java_server_cpu_build.yaml
       vars:
-        raw_path: /home/cloud_user/raw
-        packing_path: /home/clous_user/packing 
-        packed_path: /home/cloud_user/packed 
-        os: linux 
-
+        raw_path: "/home/cloud_user/raw"
+        packing_path: "/home/clous_user/packing"
+        packed_path: "/home/cloud_user/packed"
+        os: "linux"
+        name: "{{ item.name }}" 
       with_items: 
-       - "{{ linux_packages }}"
+       - "{{ packages_linux }}"
 
-- name: Sparc Server side Java CPU
-  hosts: ubuntu
+- name: Ubuntu Server side Java CPU
+  hosts: ubuntu_node
   vars_files: 
-    - java_pkgs.yaml
+    - ./vars.yaml
   tasks:
     - name: calling packaging tasks
       include: java_server_cpu_build.yaml
@@ -30,5 +29,6 @@
         raw_path: /home/ubuntu/raw
         packing_path: /home/ubuntu/packing 
         packed_path: /home/ubuntu/packed
+        os: "ubuntu"
       with_items: 
-       - "{{ solaris_packages }}"
+       - "{{ packages_solaris }}"
