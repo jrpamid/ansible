@@ -18,7 +18,7 @@ artifactory:
    api_user: "releaser"
    api_key: ""
 
-packages:
+packages_linux:
   - openjdk8_linux_64: 
      {  name : "zulu8.55.0.14-sa-jdk8.0.301-linux_x64.tar.gz",
         os: "linux",
@@ -92,6 +92,17 @@ packages:
        fonts: false,
      }
 
+packages_solaris:
+  - openjdk8_solaris_64:
+     { name : "",
+       os: "linux",
+       ver: "{{ openjdk8 }}",
+       benchmark: false,
+       vendor: "azul",
+       fonts: false,
+     }
+
+packages_sparc:
   - openjdk8_solaris_64:
      { name : "",
        os: "linux",

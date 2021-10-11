@@ -1,13 +1,23 @@
 ---
 - name: Linux Server side Java CPU
   hosts: linux
+  diff: true 
+  debugger: on_failed
+  serial: 1
+  any_errors_fatal: true
   vars_files: 
     - java_pkgs.yaml
   tasks:
     - name: calling packaging tasks
       include: java_server_cpu_build.yaml
+      vars:
+        raw_path: /home/cloud_user/raw
+        packing_path: /home/clous_user/packing 
+        packed_path: /home/cloud_user/packed 
+        os: linux 
+
       with_items: 
-       - "{{ packages }}"
+       - "{{ linux_packages }}"
 
 - name: Sparc Server side Java CPU
   hosts: ubuntu
@@ -16,5 +26,9 @@
   tasks:
     - name: calling packaging tasks
       include: java_server_cpu_build.yaml
+      vars:
+        raw_path: /home/ubuntu/raw
+        packing_path: /home/ubuntu/packing 
+        packed_path: /home/ubuntu/packed
       with_items: 
-       - "{{ packages }}"
+       - "{{ solaris_packages }}"
