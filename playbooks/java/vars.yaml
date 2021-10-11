@@ -12,7 +12,7 @@ versions: {
   dbjava: "1.15"
   }
 
-dbjava_package_url: "https://artifactory.intranal.aceit.com/artifactory/maven-dist-local/dbjava-1.15.zip"
+java_packager_url: "https://artifactory.intranal.aceit.com/artifactory/maven-dist-local/javapackager-1.15.zip"
 artifactory_base_url: "https://artifactory.intranal.aceit.com/artifactory"
 raw_packages: "{{ artifactory_base_url }}/maven-dist-local/raw/{{ cpu }}"
 openjdk_url: "{{ artifactory_base_url }}/maven-dist-public/openjdk"
