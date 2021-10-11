@@ -1,0 +1,5 @@
+---
+- name: check var1 
+  debug_var: "{{ cpu }}"
+- name: check var2
+  debug_var: "{{ openjdk_url }}"

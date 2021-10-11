@@ -1,0 +1,133 @@
+---
+- name: name of playbook
+  hosts: all
+  # tasks to return diff info
+  diff: True
+  gather_facts: true
+  # invoking a debugger. always, on_failed, on_unreachable
+  debugger: on_failed
+  # batch execution/rolling batch update. can be integer, percentage or mix of integer and percentage
+  serial: 
+    - 1
+    - 2
+    - 50%
+  # strategy plugin. default = linear (one task on all/hosts group as per serial setting), free = (dont wait for task to complete all hosts. run as fast as possible),debug
+  strategy: linear
+  # privilege escalation
+  become: true
+  # which  user to  escalate to. default is root
+  become_user: ansible
+  # halt the playbook  on any errors
+  any_errors_fatal: true
+  # ignore any errors
+  ignore_errors: true
+  # how much acceptable failure
+  max_fail_percentage: 10
+  # how the inventory hosts shoule be handled in the playbook? inventory, sorted, reverse_sorted, reverse_inventory, shuffle
+  order: inventory
+  # user used to login to remote hosts
+  remote_user: ansible
+  # bypass the host loop and run only once on the first host
+  run_once: True
+  # playbook variables
+  vars:
+    - debug: true
+    - redis_version: 5.9
+    - alpine_version: 3.10.1
+    - nginx_version: 
+    - docker_version: 
+  # variables defined in files
+  vars_files:
+    - "files/software_packages.yaml"
+    - "files/software_package_repos.yaml"
+    - "files/github_repos.yaml"
+  # variables to capture from the user
+  vars_prompt:
+    - 
+  # list of tasks to be executed before the roles
+  pre_tasks:
+    - name: optional setup tasks before playbook execution
+      set_fact:
+        debug: false
+        
+  # all roles, executed before the tasks
+  roles:
+    - sshd
+    - common
+    - role: server_hardening
+      vars:
+        ssh_port: 22
+        sftp_port: 21
+        se_linux: enabled
+  # all tasks 
+  tasks:
+  # tasks level control parameters, applied only to specific task
+    - name: install aws, redis python packages on ansible control  node
+      # variables defined at play level
+      vars:
+        - pkgs: ['boto','boto3','awscli','redis','py-yaml','openshift','docker']
+        - user: root
+      # module 
+      pip:
+        name: "{{ pkgs }}"
+        state: present
+        executable: "/usr/bin/pip3"
+        extra_args: --user
+      delegate_to: localhost
+      become: true
+      become_user: "{{ user }}"
+      become_method: sudo
+      connection: local 
+      debugger: on_failed      
+      any_errors_fatal: True
+      
+    - name: install lamp stack on RHEL 
+      yum:
+        name: ['httpd', 'php', 'php-mysql', 'mysql', 'elinks']
+        state: present
+      when: ansible_facts['os_family'] == "RedHat"
+      
+    - name: install lamp stack on Debian system
+        apt:
+          name: "{{ item }}"
+          state: latest
+        with_items:
+          - "apache2"
+          - "php"
+          - "php-mysql"
+          - "mysql-server"
+          - "elinks"
+        when: ansible_facts['distribution'] == "Ubuntu"
+    
+    - name: secret task should not log output to stdout
+      shell: "cat /var/jenkins/admin/secretpassword"
+      no_log: True
+      register: jenkins_password
+      
+    - name: configure httpd  and notfiy handler to restart
+      template:
+        src: ../templates/httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+      notify:
+        - restart httpd service
+    # ansible errror  handling using  try catch blocks style with block, rescue always
+    block:
+      - fetch:
+          src: /tmp/errrorfile
+          dest: /tmp/{{inventiry_hostname}}_errorfile
+    rescue:
+      - debug:
+          msg: "the file doesnt exist on {{ inventiry_hostname }}"
+    always:
+      - debug:
+          msg: "this mesage will be display everytime"
+      
+  # tasks to be executed after tasks section      
+  post_tasks:
+    - name: optional tasks to be done at the end of playbook
+  handlers:
+    - name: restart httpd service
+      service:
+        name: httpd
+        state: restarted
+      listen: 'restart httpd service'

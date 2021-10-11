@@ -1,0 +1,7 @@
+---
+name: Playbook to setup a YUM Package Repo Server
+hosts: reposerver
+become: true
+pre_tasks:
+  - name: check if server has internet access
+   

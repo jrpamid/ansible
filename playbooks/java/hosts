@@ -1,0 +1,14 @@
+[control]
+ansible ansible_host=0d53663d221c.mylabserver.com ansible_connection=local
+
+[linux]
+linux ansible_host=0d53663d221c.mylabserver.com
+
+[ubuntu]
+ubuntu ansible_host=49e487e03a1c.mylabserver.com
+
+[linux:vars]
+
+
+[ubuntu:vars]
+

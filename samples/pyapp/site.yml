@@ -1,0 +1,9 @@
+---
+name: test playbook
+hosts: all
+gather_facts: yes
+strategy: serial
+tasks:
+  - name: task1
+    debug: "nothing to do "
+

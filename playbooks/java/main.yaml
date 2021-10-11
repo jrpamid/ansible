@@ -1,0 +1,20 @@
+---
+- name: Linux Server side Java CPU
+  hosts: linux
+  vars_files: 
+    - java_pkgs.yaml
+  tasks:
+    - name: calling packaging tasks
+      include: java_server_cpu_build.yaml
+      with_items: 
+       - "{{ packages }}"
+
+- name: Sparc Server side Java CPU
+  hosts: ubuntu
+  vars_files: 
+    - java_pkgs.yaml
+  tasks:
+    - name: calling packaging tasks
+      include: java_server_cpu_build.yaml
+      with_items: 
+       - "{{ packages }}"

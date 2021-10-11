@@ -1,47 +1,58 @@
 ---
+common:
+  - mlocate
+  - bzip2
+  - gzip
+  - tcp_wrappers
+  - openssh
+  - firewalld
+  - fail2ban
+  - rsync
+  - sendmail
+  - python3
+  - python3-pip
+  - logrotate
+  - auditd
+  - cron
+  - at
+
 dev_tools:
    Default:
      - git
      - tree
      - curl
      - wget
-     - tmux
    RedHat:
      - git
      - tree
      - curl
      - wget
      - httpd
-     - tmux
    Debian:
      - git
      - tree
      - curl
      - wget
      - apache2
-     - tmux
 
 ops_tools:
    Default:
      - htop
      - dstat
-     - firewalld
      - tmux
    RedHat:
      - sysstat
      - htop
      - dstat
-     - firewalld
      - tmux
    Debian:
      - sysstat
      - htop
      - dstat
-     - firewalld
      - tmux
 
 # python  packages are not platform rhel/debian specific.
-# generic python scripting and developemnet packages
+# generic python scripting and development packages
 misc_py:
    Default:
      - requests
