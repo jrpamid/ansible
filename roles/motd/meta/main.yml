@@ -1,0 +1,8 @@
+galaxy_info:
+  author: jagadish pamidimalla
+  description: devops engineer
+  company: aceitpro.com
+  license: license (GPL-2.0-or-later, MIT, etc)
+  min_ansible_version: 2.1
+
+dependencies: []

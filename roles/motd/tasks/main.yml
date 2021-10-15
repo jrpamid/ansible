@@ -1,0 +1,13 @@
+---
+- name: Setting "Message Of The Day" for "{{ ansible_host }}"
+  debug:
+    msg: "Hostname = {{ ansible_host }}"
+
+- name: Copying the template file
+  ansible.builtin.template:
+    src: motd.j2
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: "0644"
+
