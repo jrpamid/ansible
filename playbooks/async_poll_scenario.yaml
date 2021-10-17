@@ -1,0 +1,45 @@
+---
+- name: Verifying Ansible async and polling function
+  hosts: ubuntu
+  gather_facts: yes
+  tasks:
+    - name: checking  uptime
+      ansible.builtin.shell: 
+        cmd: "uptime"
+      register: uptime
+
+    - name: display uptime
+      debug:
+        msg: "Uptime = {{ uptime.stdout }}"
+
+    - name: reboot the server and poll
+      ansible.builtin.shell:
+        cmd: "sleep 5 && shutdown -r now 'ansible triggered'"
+      async: 1
+      poll: 0
+      become: yes
+      register: job_status
+
+    - name: async job creates a job id
+      debug:
+        msg: " Ansible Job ID = {{ job_status.ansible_job_id }}"
+    
+
+    - name: check if server is up
+      ansible.builtin.wait_for:
+        host: "{{ ansible_host }}"
+        state: started
+        sleep: 10
+        delay: 10
+        port: 22
+      delegate_to: localhost
+
+    - name: checking uptime
+      ansible.builtin.shell:
+        cmd: "uptime"
+      register: new_uptime
+    
+    - name: display uptime
+      debug:
+        msg: "Uptime = {{ new_uptime.stdout }}"
+

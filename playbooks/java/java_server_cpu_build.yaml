@@ -1,37 +1,68 @@
 ---
 - name: java packaging for "{{ name }}"
-  debug: 
-    msg:  "raw package name => {{ name }}" 
+  debug:
+    msg:  "raw package name => {{ name }}"
 
 - name: Check the packing directory
-  debug:
-    msg: "{{ openjdk_url }}"
+  ansible.builtin.file:
+    path: "{{ packing_path }}/{{java}}{{version}}"
+    state: "directory"
+    mode: '0755'
 
 - name: Check the packed directory
-  debug: 
-    var: "raw_path"
+  ansible.builtin.file:
+    path: "{{ packed_path }}"
+    state: "directory"
+    mode: '0755'
 
-- name: Pull and Extract the raw package from artifactory
+- name: raw package artifactory link
   debug:
-    var: "{{ raw_packages }}/{{ name }}"
+    msg: "{{raw_packages}}/{{name}}"
 
-- name: Rename the package dir as per standard. "{{ java }}{{ ver }}"
+- name: check if the raw  package already exists
+  ansible.builtin.find:
+    paths: "{{ packing_path }}"
+    patterns: "{{ name }}"
+  register: file_status
+
+- name: "** Debug ** Raw package find status" 
   debug:
-    var: "{{ java }}{{ ver }}"
+    msg: "Package already downloaded = {{ file_status.matched }}"
 
-- name: Set the JAVA_HOME env variable
+- name: Check if the java packager kit is downloaded
+  ansible.builtin.find:
+    paths: "{{ packing_path }}"
+    patterns: "dbjava*.zip"
+  register: packager_kit_status
 
-- name: Pull and Extract dbjava package has been downloaded from artifactory 
+- name: using curl to pull raw package "{{ name }}"
+  ansible.builtin.shell:
+  args:
+    chdir: "{{ packing_path }}"
+    cmd: "curl -HX-JFrog-Art-Api:{{artifactory_key}} -O {{ raw_packages }}/{{ name }}"
+    creates: "{{java}}{{version}}"
+  when: file_status.matched == 0
 
-- name: Execute the CUSTOMISE action 
+- name: Using curl to pull the packager kit from artifactory
+  ansible.builtin.shell:
+  args: 
+    chdir: "{{ packing_path }}"
+    cmd: "curl -HX-JFrog-Art-Api:{{artifactory_key}} -O{{ java_packager_url }}"
+  when: packager_kit_status.matched == 0
 
-- name: Execute t he FONTS action
+- name: Extract the raw package "{{ name }}"
+  ansible.builtin.shell:
+  args:
+    chdir: "{{ packing_path }}/{{ java }}{{ version }}"
+    cmd: "tar -xvzf {{ packing_path }}/{{ name }} --strip-components=1"
+  when: file_status.matched == 1 
 
-- name: Set permissions to 755 
+- name: Extract the java packager kit
+  ansible.builtin.unarchive:
+    src: "{{ packing_path }}/{{ packager_kit_status.name }}"
+    dest: "{{ packing_path }}"
+    mode: "0755"
+    list_file: yes
+  when: packager_kit_status.matched == 1
 
-- name: execute  the VERIFY action
-
-- name: Setup the benchmark job for this java version.
-
-- name: Publish package to artifactory 
-
+  

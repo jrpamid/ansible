@@ -1,6 +1,6 @@
 ---
 - name: Linux Server side Java CPU
-  hosts: linux_node
+  hosts: sparc_node
   diff: true 
   serial: 1
   gather_facts: false
@@ -22,16 +22,23 @@
         benchmark: "{{ item.benchmark }}" 
       with_items: 
        - "{{ packages_linux }}"
+      tags:
+       - sparc
 
-- name: Solaris Server side Java CPU
+- name: Solaris x86 server side Java CPU
   hosts: solaris_node
+  gather_facts: false
+  diff: true
+  serial: 1
   vars_files: 
     - ./vars.yaml
   tasks:
     - name: calling packaging tasks 
       include: java_server_cpu_build.yaml
+      tags: 
+        - solaris
       vars:
-        packing_path: "/home/clous_user/packing"
+        packing_path: "/home/cloud_user/packing"
         packed_path: "/home/cloud_user/packed"
         os: "linux"
         name: "{{ item.name }}"
@@ -45,14 +52,19 @@
        - "{{ packages_solaris }}"
 
 - name: Solaris Sparc side Java CPU
-  hosts: sparc_node
+  hosts: linux_node
+  gather_facts: false
+  diff: true
+  serial: 1
   vars_files: 
     - ./vars.yaml
   tasks:
     - name: calling packaging tasks 
       include: java_server_cpu_build.yaml
+      tags: 
+        - linux
       vars:
-        packing_path: "/home/clous_user/packing"
+        packing_path: "/home/cloud_user/packing"
         packed_path: "/home/cloud_user/packed"
         os: "linux"
         name: "{{ item.name }}"

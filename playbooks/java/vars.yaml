@@ -12,13 +12,13 @@ versions: {
   dbjava: "1.15"
   }
 
-java_packager_url: "https://artifactory.intranal.aceit.com/artifactory/maven-dist-local/javapackager-1.15.zip"
-artifactory_base_url: "https://artifactory.intranal.aceit.com/artifactory"
-raw_packages: "{{ artifactory_base_url }}/maven-dist-local/raw/{{ cpu }}"
+java_packager_url: "http://49e487e03a1c.mylabserver.com:8082/artifactory/maven-dist-local/com/java/dbjava-1.15.zip"
+artifactory_base_url: "http://49e487e03a1c.mylabserver.com:8082/artifactory"
+raw_packages: "{{ artifactory_base_url }}/openjdk/raw/{{ cpu }}"
 openjdk_url: "{{ artifactory_base_url }}/maven-dist-public/openjdk"
 oraclejdk_url: "{{ artifactory_base_url }}/maven-dist-private/oracle/jdk"
-api_user: "releaser"
-api_key: ""
+artifactory_user: "admin"
+artifactory_key: "AP3CrpwmV4iVMVh2UGg7hMjfRhd"
 
 packages_linux:
   -   {  name : "zulu8.55.0.14-sa-jdk8.0.301-linux_x64.tar.gz",
@@ -70,12 +70,3 @@ packages_sparc:
          artifactory_push: true,
          fonts: false,
        }
-  -  {  name : "zulu8.55.0.14-sa-jdk8.0.301-linux_i686.tar.gz",
-        platform: "sparc",
-        java: "openjdk",
-        ver: "{{ versions.openjdk8 }}",
-        benchmark: false,
-        vendor: "azul",
-        artifactory_push: true,
-        fonts: false,
-     }

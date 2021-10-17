@@ -1,0 +1,24 @@
+---
+- name: Install firewalld pacakge
+  package:
+    name: "{{ firewall_service }}"
+    state: present
+- name: Configure firewalld service to startup on boot
+  service:
+    name: firewalld
+    enabled: true
+    state: started
+- name: Configure firewall services
+  ansible.posix.firewalld:
+    state: enabled
+    permanent: true
+    immediate: true
+    service: "{{ item }}"
+  with_items:
+    - "{{ default_services }}"
+
+- name: Restart firewall daemon
+  debug:
+    msg: "calling restart firewall daemon"
+  notify:
+    - restart firewall daemon

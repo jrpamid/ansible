@@ -1,0 +1,7 @@
+---
+# handlers file for roles/firewall
+- name: restart firewall daemon
+  service:
+    name: firewalld
+    state: restarted
+   
