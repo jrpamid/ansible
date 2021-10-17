@@ -5,22 +5,59 @@
   vars_files:
     - ../vars/packages.yaml
   pre_tasks:
-    - name: ensure pip is installed on rhel
+    - name: ensure pip is installed on RHEL family using yum
       become: true
       yum:
         name: python3-pip
         state: latest
       when: ansible_facts['os_family'] == "Redhat"
-    - name: ensire pip is  installed on Debian
+
+    - name: ensire pip is  installed on DEBIAN family using apt
+      become: true
       apt:
         name: python3-pip
         state: latest
       when: ansible_facts['os_family'] == "Debian"
+
+    - name: upgrade pip package
+      become: true
+      pip:
+        name: pip
+        state: present
+        extra_args: --upgrade
   
   tasks:
-    - name: installing the misc packages
+    - name: installing the misc packages using PIP
       pip:
        name: "{{ misc_py[ansible_os_family] | default(misc_py['Default']) }}"
        state: present
        extra_args: --user
-      tags: pypkg
+      tags: misc
+
+    - name: installing google cloud platform packages
+      pip:
+       name: "{{ google_py[ansible_os_family] | default(google_py['Default']) }}"
+       state: present
+       extra_args: --user
+      tags: gcp
+
+    - name: installing aws cloud platform packages
+      pip: 
+        name: "{{ aws_py[ansible_os_family] | default(aws_py['Default']) }}"
+        state: present
+        extra_args: --user
+      tags: aws
+
+    - name: installing Artificial Intelligence and Machine Language packages
+      pip:
+        name: "{{ aiml_py[ansible_os_family] | default(aiml_py['Default']) }}"
+        state: present
+        extra_args: --user
+      tags: aiml
+
+    - name: installing web development framework FLASK packages
+      pip:
+        name: "{{ flask_py[ansible_os_family] |default(flask_py['Default']) }}"
+        state: present
+        extra_args: --user
+      tags: flask

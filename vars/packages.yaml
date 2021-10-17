@@ -58,12 +58,12 @@ misc_py:
      - requests
      - beautifulsoup4
      - scrapy
-     - sqlalchemy
      - nose
      - sh
      - dateutils
      - psutil
      - pyquery
+
 # python packages for aws interaction
 aws_py:
   Default:
@@ -71,11 +71,22 @@ aws_py:
     - boto3
     - pyyaml
     - awscli
+
+# python packages required for google cloud platform
+google_py:
+  Default:
+    - requests
+    - google-auth
+  Redhat:
+    - requests
+    - goole-auth
+    - python-requests
+
 # python web application framework
 flask_py:
    Default:
     - flask
-    - sql-alchemy
+    - SQLAlchemy
     - gunicorn
     - pyyaml
     - requests
@@ -89,6 +100,3 @@ aiml_py:
     - scipy
     - scikit-learn
     - matplotlib
-    - tensorflow
-    - keras
-    - pytorch

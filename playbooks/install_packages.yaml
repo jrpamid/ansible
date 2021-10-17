@@ -7,9 +7,10 @@
     - ../vars/packages.yaml
   tasks:
     - name: install dev packages
-      dnf:
+      package:
          name: "{{ dev_tools[ansible_os_family] | default(dev_tools['Default']) }}"
          state: present
+      ignore_errors: true
 
 - name: play to install the system admin packages 
   hosts: all
@@ -19,6 +20,7 @@
     -  ../vars/packages.yaml
   tasks:
     - name: install sys admin packages
-      dnf:
+      package:
         name: "{{ ops_tools[ansible_os_family] | default(ops_tools['Default']) }}"
         state: present
+      ignore_errors: true
