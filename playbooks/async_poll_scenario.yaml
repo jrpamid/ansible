@@ -1,7 +1,8 @@
 ---
 - name: Verifying Ansible async and polling function
-  hosts: ubuntu
-  gather_facts: yes
+  hosts: all
+  gather_facts: False
+  become_user: ansible
   tasks:
     - name: checking  uptime
       ansible.builtin.shell: 
@@ -16,7 +17,7 @@
       ansible.builtin.shell:
         cmd: "sleep 5 && shutdown -r now 'ansible triggered'"
       async: 1
-      poll: 0
+      poll: 10
       become: yes
       register: job_status
 

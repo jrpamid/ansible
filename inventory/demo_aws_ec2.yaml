@@ -1,0 +1,26 @@
+plugin: amazon.aws.aws_ec2
+allow_duplicated_hosts: False
+strict: False
+cache: False
+regions:
+  - us-east-1
+  - us-east-2
+  - us-west-1
+  - us-west-2 
+# lets get some groups created for easy maintenance based on application, os and project
+groups:
+  development: "'dev' in (tags|list)"
+  staging: "'stage' in (tags|list)"
+  production: "'prod' in (tags|list)"  
+keyed_groups:
+  # Create a group for each region and prefix aws_region
+  - key: placement.region
+    prefix: aws_region
+  # Create a group for each 
+  - key: tags['Role']
+    parent_group: projectX
+  # Create a group based in OS distribution
+  - prefix: distro
+    key: ansible_distribution
+    
+

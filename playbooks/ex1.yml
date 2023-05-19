@@ -1,7 +1,0 @@
----
-- name:  playbook group_by operation
-  hosts: all
-  tasks:
-    - name: group by os
-      group_by: key={{ ansible_distribution }}
-

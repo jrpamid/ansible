@@ -67,7 +67,8 @@ misc_py:
 # python packages for aws interaction
 aws_py:
   Default:
-    - boto
+    - requests
+    - schedule
     - boto3
     - pyyaml
     - awscli
@@ -76,12 +77,17 @@ aws_py:
 google_py:
   Default:
     - requests
+    - schedule
     - google-auth
-  Redhat:
-    - requests
-    - goole-auth
-    - python-requests
+    - google-cloud-storage
+    - google-cloud-pubsub
 
+azure_py:
+  Default:
+    - azure-storage-blob
+    - azure-identity
+    - azure-servicebus
+    
 # python web application framework
 flask_py:
    Default:
@@ -92,6 +98,7 @@ flask_py:
     - requests
     - dash
     - plotly
+
 # python Artificial Intelligence  and Machine Learning packages
 aiml_py:
    Default:

@@ -1,6 +1,7 @@
-[test]
-ansible ansible_connection=local ansible_host=36df4d3c2f1c.mylabserver.com
-centos ansible_host=0d53663d221c.mylabserver.com
-ubuntu ansible_host=8ba1d7cffa1c.mylabserver.com
+controller ansible_connection=local ansible_host=b3e45f03ee2c.mylabserver.com
+codeserver ansible_host=b3e45f03ee1c.mylabserver.com
+demo ansible_host=b3e45f03ee3c.mylabserver.com
+
+
 
 

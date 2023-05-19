@@ -48,6 +48,13 @@
         extra_args: --user
       tags: aws
 
+    - name: installing Azure cloud platform pyhton packages
+      pip:
+        name: "{{ azure_py['Default'] }}"
+        state: present
+        extra_args: --user
+      tags: azure
+
     - name: installing Artificial Intelligence and Machine Language packages
       pip:
         name: "{{ aiml_py[ansible_os_family] | default(aiml_py['Default']) }}"

@@ -1,7 +1,0 @@
----
-- name: Playbook to  check  ansible setup
-  hosts: test
-  gather_facts: false
-  tasks:
-    - name: check hostname
-      command: "cat /etc/os-release"
